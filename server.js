@@ -1,10 +1,12 @@
 require("dotenv").config();
+const authRoutes = require('./routes/authRoutes');
 const express = require("express");
 const mongoose = require("mongoose");
 const taskRoutes = require("./routes/taskRoutes"); // Adjust the path as necessary
 
 const app = express();
 
+app.use(authRoutes);
 app.use(express.json()); // to parse JSON request bodies
 app.use(taskRoutes); // use the task routes
 
