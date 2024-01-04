@@ -1,14 +1,15 @@
 require("dotenv").config();
-const authRoutes = require('./routes/authRoutes');
 const express = require("express");
 const mongoose = require("mongoose");
-const taskRoutes = require("./routes/taskRoutes"); // Adjust the path as necessary
+const authRoutes = require("./routes/authRoutes");
+const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
 
+app.use(express.json()); // To parse JSON request bodies
+
 app.use(authRoutes);
-app.use(express.json()); // to parse JSON request bodies
-app.use(taskRoutes); // use the task routes
+app.use(taskRoutes);
 
 // MongoDB connection
 const dbURI = process.env.DB_URI;
@@ -17,7 +18,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-// Root route (optional, can be removed if not needed)
+// Root route (optional)
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
